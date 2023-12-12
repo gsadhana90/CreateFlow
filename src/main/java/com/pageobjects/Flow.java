@@ -1,5 +1,4 @@
 package com.pageobjects;
-
 import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.Toolkit;
@@ -7,9 +6,9 @@ import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyEvent;
 import java.util.List;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -17,15 +16,12 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.w3c.dom.html.HTMLInputElement;
 
+public class Flow  {
 
-public class Flow {
+	WebDriver driver;
 
-	private final WebDriver driver;
-
-	private final WebDriverWait wait;
-
+	WebDriverWait wait;
 
 	public Flow(WebDriver driver) {
 
@@ -34,25 +30,26 @@ public class Flow {
 		this.wait = new WebDriverWait(driver, 10);
 
 		PageFactory.initElements(driver, this);
+
 	}
 
-	@FindBy(xpath = "//input[@id='txt_email']")
+	@FindBy(id="txt_email")
 
 	private WebElement Emailid;
 
-	@FindBy(xpath = "//input[@id='txt_password']")
+	@FindBy(id="txt_password")
 
 	private WebElement Password;
 
-	@FindBy(xpath = "//button[@type='submit']")
+	@FindBy(css = "button[type=submit]")
 
 	private WebElement Submit;
-	
+
 	@FindBy(id = "password-manager-popup")
-	
+
 	private WebElement popup;
 
-	@FindBy( xpath= "//button[@class='MuiButtonBase-root MuiIconButton-root slideshowClose']")
+	@FindBy(xpath="//button[@class='MuiButtonBase-root MuiIconButton-root slideshowClose']")
 
 	private WebElement FlowsClose;
 
@@ -119,7 +116,11 @@ public class Flow {
 	@FindBy(xpath="//input[@name='favColor']")
 
 	private WebElement Color;
-
+	
+    @FindBy(xpath="//div[@style='background: rgb(130, 154, 212);']")
+	
+	private WebElement colorPick;
+	
 	@FindBy(xpath="//div[@class='MuiGrid-root jss25694 false chosenColor avatarComp avatarDiv'")
 
 	private WebElement ColorPick;
@@ -131,6 +132,10 @@ public class Flow {
 	@FindBy(xpath="//input[@placeholder='__/__/____']")
 
 	private WebElement DueDate;
+
+	@FindBy(xpath="//div[@class='MuiDialogActions-root MuiDialogActions-spacing']//span[normalize-space()='Cancel']")
+
+	private WebElement canceldate;
 
 	@FindBy(xpath="//input[@id='job_ongoing']")
 
@@ -147,6 +152,10 @@ public class Flow {
 	@FindBy(xpath= "//input[@id='ac-idteam_users']")
 
 	private WebElement AddTeamMembers;
+	
+	@FindBy(className = "MuiChip-label")
+	
+	private List <WebElement> Members;
 
 	@FindBy(xpath="//button[@class='MuiButtonBase-root MuiIconButton-root MuiAutocomplete-popupIndicator']")
 
@@ -266,6 +275,8 @@ public class Flow {
 
 	private WebElement ClickFlow;
 
+
+
 	public void setEmailid(String ename) {
 
 		Emailid.sendKeys(ename);
@@ -278,18 +289,18 @@ public class Flow {
 
 	} 
 
-
 	public void setSubmit() {
 
-		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);",Submit);
+		Submit.click();	
+	}
 
-		((JavascriptExecutor) driver).executeScript("arguments[0].click();",Submit);
+	public void setPopup() {
+
+		popup.click();
 
 	}
-	
-	public void setFlowsClose() {
 
-		Actions a = new Actions(driver);
+	public void setFlowsClose() {
 
 		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);",FlowsClose);
 
@@ -298,7 +309,7 @@ public class Flow {
 
 	public void setFlow() {
 
-		Flow.click();
+		((JavascriptExecutor) driver).executeScript("arguments[0].click();",Flow);
 
 	}
 
@@ -332,7 +343,7 @@ public class Flow {
 
 		Actions a = new Actions(driver);
 
-		boolean emoji= false;
+		boolean emoji= true;
 
 		if(emoji) {
 
@@ -342,108 +353,92 @@ public class Flow {
 
 			if(name.equalsIgnoreCase("smileys")) {
 
-				((JavascriptExecutor) driver).executeScript("arguments[0].click();",Smileys);
-
 				if(EmojiPicker.size()>=517) {
 
 					WebElement Emojiget = EmojiPicker.get(354);
 
-					Emojiget.click();
-
+					((JavascriptExecutor) driver).executeScript("arguments[0].click();",Emojiget);
 				}
 			}
 
 			if(name.equalsIgnoreCase("animals")) {
 
-				((JavascriptExecutor) driver).executeScript("arguments[0].click();",Animals);
-
 				if(EmojiPicker.size()>=658) {
 
 					WebElement Emojiget = EmojiPicker.get(500);
 
-					Emojiget.click();
-
+					((JavascriptExecutor) driver).executeScript("arguments[0].click();",Emojiget);
 				}
 			}
 
 			if(name.equalsIgnoreCase("fooddrinks")) {
 
-				((JavascriptExecutor) driver).executeScript("arguments[0].click();",FoodDrinks);
-
-				if(EmojiPicker.size()<=788) {
+				if(EmojiPicker.size()>=788) {
 
 					WebElement Emojiget = EmojiPicker.get(786);
 
-					Emojiget.click();
+					((JavascriptExecutor) driver).executeScript("arguments[0].click();",Emojiget);
 
 				}
 			}
 
 			if(name.equalsIgnoreCase("travels")) {
 
-				((JavascriptExecutor) driver).executeScript("arguments[0].click();",Travels);
-
-				if(EmojiPicker.size()<=1003) {
+				if(EmojiPicker.size()>=1003) {
 
 					WebElement Emojiget = EmojiPicker.get(998);
 
-					Emojiget.click();
+					((JavascriptExecutor) driver).executeScript("arguments[0].click();",Emojiget);
+
 				}
 
 			}
 			if(name.equalsIgnoreCase("activities")) {
 
-				((JavascriptExecutor) driver).executeScript("arguments[0].click();",Activities);
-
-				if(EmojiPicker.size()<=1087) {
+				if(EmojiPicker.size()>=1087) {
 
 					WebElement Emojiget = EmojiPicker.get(1003);
 
-					Emojiget.click();
+					((JavascriptExecutor) driver).executeScript("arguments[0].click();",Emojiget);
+
 				}
 			}
 
 			if(name.equalsIgnoreCase("objects")) {
 
-				((JavascriptExecutor) driver).executeScript("arguments[0].click();",Objects);
-
-				if(EmojiPicker.size()<=1337) {
+				if(EmojiPicker.size()>=1337) {
 
 					WebElement Emojiget = EmojiPicker.get(1335);
 
-					Emojiget.click();
+					((JavascriptExecutor) driver).executeScript("arguments[0].click();",Emojiget);
+
 				}
 			}
 
 			if(name.equalsIgnoreCase("symbols")) {
 
-				((JavascriptExecutor) driver).executeScript("arguments[0].click();",Symbols);
-
-				if(EmojiPicker.size()<=1554) {
+				if(EmojiPicker.size()>=1554) {
 
 					WebElement Emojiget = EmojiPicker.get(1534);
 
-					Emojiget.click();
+					((JavascriptExecutor) driver).executeScript("arguments[0].click();",Emojiget);
 
 				}
 			}
 
 			if(name.equalsIgnoreCase("flags")) {
 
-				((JavascriptExecutor) driver).executeScript("arguments[0].click();",Flags);
-
-				if(EmojiPicker.size()<=1815) {
+				if(EmojiPicker.size()>=1815) {
 
 					WebElement Emojiget = EmojiPicker.get(1810);
 
-					Emojiget.click();
-
+					((JavascriptExecutor) driver).executeScript("arguments[0].click();",Emojiget);
 
 				}
 
 			}
-		}
 
+		}
 		boolean uploadimage= false;
 
 		if(uploadimage) {
@@ -476,7 +471,7 @@ public class Flow {
 
 		}
 
-		boolean color= true; 
+		boolean color= false; 
 
 		if(color) {
 
@@ -487,15 +482,7 @@ public class Flow {
 			//style="background: rgb(122, 34, 34);"
 
 			System.out.println(value);
-
-			Color.sendKeys("#7a2222"); // Enter new value
-
-			//((JavascriptExecutor) driver).executeScript("arguments[0].value ='#7a2222';", Color);
-
-			//((JavascriptExecutor) driver).executeScript("arguments[0].click();",Color);
-
-			Color.sendKeys(Keys.ENTER);
-
+							
 			String value1 = Color.getAttribute("value");
 
 			System.out.println(value1);
@@ -509,7 +496,6 @@ public class Flow {
 		Brief.click();
 
 		Brief.sendKeys("The third session for budget allocation for paud ads marketing");	
-
 	}
 
 	public void setDueDate() {
@@ -518,8 +504,19 @@ public class Flow {
 
 		if(duedate) {
 
-			DueDate.sendKeys("12/12/2023");
+			Actions a = new Actions(driver);
 
+			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);",DueDate);
+
+			((JavascriptExecutor) driver).executeScript("arguments[0].click();",DueDate);
+
+			for(int i=0;i<5;i++) {
+
+				a.sendKeys(DueDate,Keys.ARROW_RIGHT).build().perform();
+				
+				a.sendKeys(Keys.ENTER);
+			}
+			
 		}
 
 		boolean ongoing= false;
@@ -563,13 +560,12 @@ public class Flow {
 		for(int i=1;i<10;i+=2) {
 
 			a.click(AddTeamMembers).perform();
-
+			
 			a.sendKeys(Keys.ARROW_DOWN).sendKeys(Keys.ARROW_DOWN).sendKeys(Keys.ENTER).build().perform();
 
 			System.out.println(AddTeamMembers);
-
 		}
-
+	
 	}
 
 	public void setAddNew( String newname) {
@@ -669,7 +665,7 @@ public class Flow {
 
 			wait.until(ExpectedConditions.elementToBeClickable(SortBy));
 
-			SortBy.click();
+			((JavascriptExecutor) driver).executeScript("arguments[0].click();",SortBy);
 
 			for(int i=0;i<3;i++) {
 
@@ -745,40 +741,22 @@ public class Flow {
 
 	public void setClickFlow() {
 
-		ClickFlow.click();
+		WebElement flow = NumberOfFlows.get(1);
 
-		String flowurl = ClickFlow.getAttribute("href");
+		((JavascriptExecutor) driver).executeScript("arguments[0].click();",flow);
 
-		System.out.println(flowurl);
+
+
+
+
+		//flow.click();
+
+		// flowurl = ClickFlow.getAttribute("href");
+
+		//System.out.println(flowurl);
 
 	}
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
