@@ -745,11 +745,7 @@ public class Flow  {
 
 		((JavascriptExecutor) driver).executeScript("arguments[0].click();",flow);
 
-
-
-
-
-		//flow.click();
+          	//flow.click();
 
 		// flowurl = ClickFlow.getAttribute("href");
 
