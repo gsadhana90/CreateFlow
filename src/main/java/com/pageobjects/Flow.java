@@ -117,7 +117,7 @@ public class Flow  {
 
 	private WebElement Color;
 	
-    @FindBy(xpath="//div[@style='background: rgb(130, 154, 212);']")
+        @FindBy(xpath="//div[@style='background: rgb(130, 154, 212);']")
 	
 	private WebElement colorPick;
 	
